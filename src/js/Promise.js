@@ -131,4 +131,26 @@ class Promise {
       reject(reason)
     })
   }
+
+  /**
+   * all方法，处理多个Promise
+   * @param {*} promises 
+   */
+  static all(promises) {
+    return new Promise((resolve, reject) => {
+      let count = 0
+      const arr = []
+      for(let i = 0; i < promises.length; i++) {
+        promises[i].then(res => {
+          arr[i] = res
+          count++
+          if (count === promises.length) {
+            resolve(arr)
+          }
+        }, err => {
+          reject(err)
+        })
+      }
+    })
+  }
 }

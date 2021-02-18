@@ -12,14 +12,15 @@
 
 <body>
   <script>
-    const p = Promise.reject("err")
-    console.log(p)
-    const p2 = Promise.reject(new Promise((resolve, reject) => {
-      resolve("success")
+    const p = Promise.resolve("ok")
+    const p2 = Promise.resolve(new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("success")
+      }, 1000)
     }))
-    console.log(p2)
-    const p3 = Promise.reject(Promise.reject("Success"))
-    console.log(p3)
+    const p3 = Promise.resolve(Promise.resolve("Success"))
+    const res = Promise.all([p, p2, p3])
+    console.log(res);
   </script>
 </body>
 
