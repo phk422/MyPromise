@@ -72,15 +72,39 @@ class Promise {
             reject(rea)
           })
         } else {
-          reject(result)
+          resolve(result)
         }
       }
       // 如果是处于pending状态，则是异步任务
       if (this.PromiseState === "pending") {
         // 保存回调函数
         this.callbacks.push({
-          onResolved,
-          onRejected
+          onResolved: () => {
+            const result = onResolved(this.PromiseResult)
+            // 判断result是不是Promise对象
+            if (result instanceof Promise) {
+              result.then(res => {
+                resolve(res)
+              }, rea => {
+                reject(rea)
+              })
+            } else {
+              resolve(result)
+            }
+          },
+          onRejected: () => {
+            const result = onRejected(this.PromiseResult)
+            // 判断result是不是Promise对象
+            if (result instanceof Promise) {
+              result.then(res => {
+                resolve(res)
+              }, rea => {
+                reject(rea)
+              })
+            } else {
+              resolve(result)
+            }
+          }
         })
       }
     })
