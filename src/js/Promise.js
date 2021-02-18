@@ -103,4 +103,22 @@ class Promise {
   catch(onRejected) {
     return this.then(undefined, onRejected)
   }
+
+  /**
+   * resovle方法，属于类
+   * @param {*} value 
+   */
+  static resolve(value) {
+    return new Promise((resovle, reject) => {
+      if (value instanceof Promise) {
+        value.then(res => {
+          resovle(res)
+        }, err => {
+          reject(err)
+        })
+      } else {
+        resovle(value)
+      }
+    })
+  }
 }
