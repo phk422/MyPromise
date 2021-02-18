@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,30 +9,21 @@
   <!-- 引入自定义的promise,自动覆盖已有的Promise -->
   <script src="./src/js/Promise.js"></script>
 </head>
+
 <body>
   <script>
     // 创建Promise对象
     const p = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve("ok")
-        // reject("ERR")
-      }, 1000)
+      // resolve("OK")
+      // reject("ERR")
+      throw "Err"
     })
 
-    // 处理结果
-    const res = p.then(res => {
-      console.log(res)
-      return new Promise((resolve, reject) => {
-        resolve('success')
-        // reject("ERROR")
-        // throw "throw a error"
-      })
-    }, err => {
+    p.catch(err => {
       console.log(err)
     })
 
-    console.log(res)
-  
   </script>
 </body>
+
 </html>

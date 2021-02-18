@@ -84,4 +84,8 @@ class Promise {
       }
     })
   }
+
+  catch(onRejected) {
+    return this.then(undefined, onRejected)
+  }
 }
