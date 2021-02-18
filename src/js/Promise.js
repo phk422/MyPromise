@@ -3,13 +3,19 @@ class Promise {
   PromiseResult = null
   constructor(executor) {
     // 改变Promise实例的状态，保存执行的结果
+    // 成功的回调
     const resolve = (data) => {
+      // 确保成功或者失败的回调只执行一次
+      if (this.PromiseState !== "pending") return
       // 修改状态
       this.PromiseState = "fulfilled"
       // 保存数据
       this.PromiseResult = data
     }
+    // 失败的回调
     const reject = (data) => {
+      // 确保成功或者失败的回调只执行一次
+      if (this.PromiseState !== "pending") return
       this.PromiseState = "rejected"
       this.PromiseResult = data
     }
