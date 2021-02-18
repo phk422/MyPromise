@@ -12,13 +12,13 @@
 
 <body>
   <script>
-    const p = Promise.resolve("OK")
+    const p = Promise.reject("err")
     console.log(p)
-    const p2 = Promise.resolve(new Promise((resolve, reject) => {
+    const p2 = Promise.reject(new Promise((resolve, reject) => {
       resolve("success")
     }))
     console.log(p2)
-    const p3 = Promise.resolve(Promise.resolve("Success"))
+    const p3 = Promise.reject(Promise.reject("Success"))
     console.log(p3)
   </script>
 </body>

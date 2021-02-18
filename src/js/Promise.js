@@ -121,4 +121,14 @@ class Promise {
       }
     })
   }
+
+  /**
+   * reject方法,返回结果永远是一个失败的Promise, 失败的结果为传入的参数
+   * @param {*} reason 
+   */
+  static reject(reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason)
+    })
+  }
 }
