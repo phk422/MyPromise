@@ -13,14 +13,21 @@
     // 创建Promise对象
     const p = new Promise((resolve, reject) => {
       // 成功
-      // resolve("OK")
+      resolve("OK")
       // 失败
       // reject("err")
       // 抛出异常
-      throw "ERROR"
+      // throw "ERROR"
     })
 
     console.log(p)
+
+    // 处理结果
+    p.then(res => {
+      console.log(res)
+    }, err => {
+      console.log(err)
+    })
   </script>
 </body>
 </html>
