@@ -27,6 +27,13 @@
     }, err => {
       console.log(err)
     })
+    // 多次调用then,处理结果
+    p.then(res => {
+      alert(res)
+    }, err => {
+      alert(err)
+    })
+  
   </script>
 </body>
 </html>
