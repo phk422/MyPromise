@@ -46,6 +46,12 @@ class Promise {
    * @param {*} onRejected 失败的回调函数
    */
   then(onResolved, onRejected) {
+    // 判断参数是否是回调函数
+    if (typeof onRejected !== 'function') {
+      onRejected = (reason) => {
+        throw reason
+      }
+    }
     return new Promise((resolve, reject) => {
       // 封装函数，处理成功和失败的逻辑
       const callback = (type) => {
@@ -85,6 +91,10 @@ class Promise {
     })
   }
 
+  /**
+   * 处理错误的函数
+   * @param {*} onRejected 
+   */
   catch(onRejected) {
     return this.then(undefined, onRejected)
   }

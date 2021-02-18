@@ -14,12 +14,20 @@
   <script>
     // 创建Promise对象
     const p = new Promise((resolve, reject) => {
-      // resolve("OK")
+      resolve("OK")
       // reject("ERR")
-      throw "Err"
+      // throw "Err"
     })
 
-    p.catch(err => {
+    // 异常穿透
+    p.then(res => {
+      console.log(111)
+    }).then(res => {
+      throw "a err"
+      console.log(222)
+    }).then(res => {
+      console.log(333)
+    }).catch(err => {
       console.log(err)
     })
 
