@@ -12,12 +12,11 @@
   <script>
     // 创建Promise对象
     const p = new Promise((resolve, reject) => {
-      // 成功
-      resolve("OK")
-      // 失败
-      // reject("err")
-      // 抛出异常
-      // throw "ERROR"
+      // 处理异步任务
+      setTimeout(() => {
+        // resolve("OK")
+        reject("err")
+      }, 1000)
     })
 
     console.log(p)

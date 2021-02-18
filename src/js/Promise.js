@@ -3,6 +3,8 @@ class Promise {
   PromiseState = "pending"
   // 保存回调的结果
   PromiseResult = null
+  // 用于保存异步任务的回调函数
+  callback = {}
   constructor(executor) {
     // 改变Promise实例的状态，保存执行的结果
     // 成功的回调
@@ -13,6 +15,10 @@ class Promise {
       this.PromiseState = "fulfilled"
       // 保存数据
       this.PromiseResult = data
+      // 处理成功的回调
+      if (this.callback.onResolved) {
+        this.callback.onResolved(data)
+      }
     }
     // 失败的回调
     const reject = (data) => {
@@ -20,6 +26,10 @@ class Promise {
       if (this.PromiseState !== "pending") return
       this.PromiseState = "rejected"
       this.PromiseResult = data
+      // 处理失败的回调
+      if (this.callback.onRejected) {
+        this.callback.onRejected(data)
+      }
     }
     // 创建Promise对象时，同步执行回调函数
     try {
@@ -43,6 +53,14 @@ class Promise {
     // 失败rejected
     if (this.PromiseState === "rejected") {
       onRejected(this.PromiseResult)
+    }
+    // 如果是处于pending状态，则是异步任务
+    if (this.PromiseState === "pending") {
+      // 保存回调函数
+      this.callback = {
+        onResolved,
+        onRejected
+      }
     }
 
   }
