@@ -46,21 +46,43 @@ class Promise {
    * @param {*} onRejected 失败的回调函数
    */
   then(onResolved, onRejected) {
-    // 判断成功还是失败
-    if (this.PromiseState === "fulfilled") {
-      onResolved(this.PromiseResult)
-    }
-    // 失败rejected
-    if (this.PromiseState === "rejected") {
-      onRejected(this.PromiseResult)
-    }
-    // 如果是处于pending状态，则是异步任务
-    if (this.PromiseState === "pending") {
-      // 保存回调函数
-      this.callbacks.push({
-        onResolved,
-        onRejected
-      })
-    }
+    return new Promise((resolve, reject) => {
+      // 判断成功还是失败
+      if (this.PromiseState === "fulfilled") {
+        const result = onResolved(this.PromiseResult)
+        // 判断result是不是Promise对象
+        if (result instanceof Promise) {
+          result.then(res => {
+            resolve(res)
+          }, rea => {
+            reject(rea)
+          })
+        } else {
+          resolve(result)
+        }
+      }
+      // 失败rejected
+      if (this.PromiseState === "rejected") {
+        const result = onRejected(this.PromiseResult)
+        // 判断result是不是Promise对象
+        if (result instanceof Promise) {
+          result.then(res => {
+            resolve(res)
+          }, rea => {
+            reject(rea)
+          })
+        } else {
+          reject(result)
+        }
+      }
+      // 如果是处于pending状态，则是异步任务
+      if (this.PromiseState === "pending") {
+        // 保存回调函数
+        this.callbacks.push({
+          onResolved,
+          onRejected
+        })
+      }
+    })
   }
 }

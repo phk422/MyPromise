@@ -12,27 +12,29 @@
   <script>
     // 创建Promise对象
     const p = new Promise((resolve, reject) => {
-      // 处理异步任务
-      setTimeout(() => {
-        // resolve("OK")
-        reject("err")
-      }, 1000)
+      resolve("ok")
+      // reject("err")
+      // throw "ERR"
     })
-
-    console.log(p)
 
     // 处理结果
-    p.then(res => {
+    const res = p.then(res => {
       console.log(res)
+      // return "哈哈"
+      return new Promise((resolve, reject) => {
+        // resolve('success')
+        reject("ERROR")
+        // throw "throw a error"
+      })
     }, err => {
       console.log(err)
+      return new Promise((resolve, reject) => {
+        resolve("hahh ")
+        // throw "aaa"
+      })
     })
-    // 多次调用then,处理结果
-    p.then(res => {
-      alert(res)
-    }, err => {
-      alert(err)
-    })
+
+    console.log(res)
   
   </script>
 </body>
