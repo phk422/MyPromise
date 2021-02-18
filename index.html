@@ -12,14 +12,14 @@
 
 <body>
   <script>
-    const p = Promise.resolve("ok")
-    const p2 = Promise.resolve(new Promise((resolve, reject) => {
+    const p = Promise.resolve(new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve("success")
       }, 1000)
     }))
+    const p2 = Promise.resolve("ok")
     const p3 = Promise.resolve(Promise.resolve("Success"))
-    const res = Promise.all([p, p2, p3])
+    const res = Promise.race([p, p2, p3])
     console.log(res);
   </script>
 </body>

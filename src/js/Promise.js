@@ -153,4 +153,22 @@ class Promise {
       }
     })
   }
+
+  /**
+   * race方法，传入的Peomises实例，谁先改变状态，谁就是返回的值
+   * @param {*} promises 
+   */
+  static race(promises) {
+    return new Promise((resovle, reject) => {
+      for(let i = 0; i < promises.length; i++) {
+        promises[i].then(res => {
+          // 修改返回对象的状态为成功
+          resovle(res)
+        }, err => {
+          // 修改返回对象的状态为err失败
+          reject(err)
+        })
+      }
+    })
+  }
 }
