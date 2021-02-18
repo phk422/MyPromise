@@ -19,12 +19,9 @@
       // throw "Err"
     })
 
-    // 异常穿透
-    p.then(res => {
-      console.log(111)
-    }).then(res => {
-      throw "a err"
-      console.log(222)
+    // 值传递
+    p.then().then(res => {
+      console.log(res)
     }).then(res => {
       console.log(333)
     }).catch(err => {

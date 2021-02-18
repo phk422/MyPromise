@@ -46,11 +46,16 @@ class Promise {
    * @param {*} onRejected 失败的回调函数
    */
   then(onResolved, onRejected) {
-    // 判断参数是否是回调函数
+    // 1.判断参数是否是回调函数
+    // 1.1异常穿透
     if (typeof onRejected !== 'function') {
       onRejected = (reason) => {
         throw reason
       }
+    }
+    // 1.2 值传递
+    if (typeof onResolved !== 'function') {
+      onResolved = value => value
     }
     return new Promise((resolve, reject) => {
       // 封装函数，处理成功和失败的逻辑
