@@ -75,21 +75,31 @@ class Promise {
 
       // 判断成功还是失败
       if (this.PromiseState === "fulfilled") {
-        callback(onResolved)
+        // 采用定时异步执行then的回调函数
+        setTimeout(() => {
+          callback(onResolved)
+        })
       }
       // 失败rejected
       if (this.PromiseState === "rejected") {
-        callback(onRejected)
+        // 采用定时异步执行then的回调函数
+        setTimeout(() => {
+          callback(onRejected)
+        })
       }
       // 如果是处于pending状态，则是异步任务
       if (this.PromiseState === "pending") {
         // 保存回调函数
         this.callbacks.push({
           onResolved: () => {
-            callback(onResolved)
+            setTimeout(() => {
+              callback(onResolved)
+            })
           },
           onRejected: () => {
-            callback(onRejected)
+            setTimeout(() => {
+              callback(onRejected)
+            })
           }
         })
       }

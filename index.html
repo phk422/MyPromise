@@ -12,15 +12,26 @@
 
 <body>
   <script>
-    const p = Promise.resolve(new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve("success")
-      }, 1000)
-    }))
-    const p2 = Promise.resolve("ok")
-    const p3 = Promise.resolve(Promise.resolve("Success"))
-    const res = Promise.race([p, p2, p3])
-    console.log(res);
+    const p = new Promise((resolve, reject) => {
+      // 333 111 222
+      // setTimeout(() => {
+      //   resolve("ok")
+      //   console.log(111)
+      // }, 1000)
+      // 111 333 222
+      resolve("ok")
+      console.log(111)
+      // reject("err")
+    })
+
+    // then方法的回调是异步的
+    p.then(res => {
+      console.log(222)
+    }, err => {
+      console.log(222)
+    })
+
+    console.log(333)
   </script>
 </body>
 
