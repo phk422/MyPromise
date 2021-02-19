@@ -60,16 +60,21 @@ class Promise {
     return new Promise((resolve, reject) => {
       // 封装函数，处理成功和失败的逻辑
       const callback = (type) => {
-        const result = type(this.PromiseResult)
-        // 判断result是不是Promise对象
-        if (result instanceof Promise) {
-          result.then(res => {
-            resolve(res)
-          }, rea => {
-            reject(rea)
-          })
-        } else {
-          resolve(result)
+        // 当异步调用时，这必须自己捕捉异常
+        try {
+          const result = type(this.PromiseResult)
+          // 判断result是不是Promise对象
+          if (result instanceof Promise) {
+            result.then(res => {
+              resolve(res)
+            }, rea => {
+              reject(rea)
+            })
+          } else {
+            resolve(result)
+          }
+        } catch (error) {
+          reject(error)
         }
       }
 

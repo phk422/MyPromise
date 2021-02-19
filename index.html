@@ -19,15 +19,15 @@
       //   console.log(111)
       // }, 1000)
       // 111 333 222
-      resolve("ok")
-      console.log(111)
-      // reject("err")
+      // resolve("ok")
+      reject("err")
+      console.log(111)  
     })
 
     // then方法的回调是异步的
     p.then(res => {
       console.log(222)
-    }, err => {
+    }).catch(err => {
       console.log(222)
     })
 
